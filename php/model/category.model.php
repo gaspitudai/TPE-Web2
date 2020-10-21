@@ -17,6 +17,12 @@
             return $query->fetchAll(PDO::FETCH_OBJ);
         }
         
+        function getCategory($id_category = null) {
+            $query = $this->db->prepare('SELECT * FROM category WHERE id_category=?');
+            $query->execute(array($id_category));
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        }
+        
         function addCategory($name, $price, $id_category) {
             $query = $this->db->prepare('INSERT INTO category(name, price, id_category) VALUES(?, ?, ?)');
             $query->execute(array($name, $price, $id_category));

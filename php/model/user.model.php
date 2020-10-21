@@ -17,6 +17,12 @@
             return $query->fetchAll(PDO::FETCH_OBJ);
         }
      
+        function getUserByID($user_id){
+            $query = $this->db->prepare("SELECT * FROM users WHERE user_id=?");
+            $query->execute(array($user_id));
+            return $query->fetch(PDO::FETCH_OBJ);
+        }
+     
         function getUser($userName){
             $query = $this->db->prepare("SELECT * FROM users WHERE name=?");
             $query->execute(array($userName));
