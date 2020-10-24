@@ -1,34 +1,16 @@
-<?php
+<?php 
 
-    require_once 'php/model/ticket.model.php';
-    require_once 'php/model/category.model.php';
-    require_once 'php/model/user.model.php';
-    require_once 'php/API/view/API.view.php';
+    abstract class APIController {
 
-    class APIController {
+        private $data; 
 
-        private $ticketModel;
-        private $categoryModel;
-        private $userModel;
-        private $view;
-
-        function __construct() {
-            $this->ticketModel = new TicketModel();
-            $this->categoryModel = new CategoryModel();
-            $this->userModel = new UserModel();
-            $this->view = new APIView();
+        public function __construct() {
+            $this->data = file_get_contents("php://input"); 
         }
 
-        function getAll() {
-            $tickets = $this->ticketModel->getTickets();
-            $categories = $this->categoryModel->getCategories();
-            $users = $this->userModel->getAllUsers();
-            $allData = array(
-                'Tickets' => $tickets,
-                'Categories' => $categories, 
-                'Users' => $users
-            );
-            $this->view->response($allData, 200);
-        }
-
+        function getData(){ 
+            return json_decode($this->data); 
+        }  
+        
     }
+

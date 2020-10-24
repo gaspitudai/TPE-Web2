@@ -1,5 +1,5 @@
 <?php
-
+/*
     require_once 'php/model/ticket.model.php';
     require_once 'php/model/category.model.php';
     require_once 'php/view/ticket.view.php';

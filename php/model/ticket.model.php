@@ -40,6 +40,25 @@
             $query ->execute(array($name, $date, $id_category, $id_ticket));
         }
 
+// API
+      
+        function deleteTicketFromAPI($ticket_id){
+            $query = $this->db->prepare("DELETE FROM ticket WHERE id_ticket=?");
+            $query->execute(array($ticket_id));
+            return $query->rowCount();
+        }
+
+        function updateTicketFromAPI($name, $date, $id_category, $id_ticket){
+            $query = $this->db ->prepare('UPDATE ticket SET name=?, date=?, id_category=? WHERE id_ticket=?');
+            $query->execute(array($name, $date, $id_category, $id_ticket));
+            return $query->rowCount();
+        }
+      
+        function addTicketFromAPI($name, $date, $id_category){
+            $query = $this->db->prepare('INSERT INTO ticket(name, date, id_category) VALUES(?, ?, ?)');
+            $query->execute(array($name, $date, $id_category));
+            return $this->db->lastInsertId();
+        }
 
         
     }
