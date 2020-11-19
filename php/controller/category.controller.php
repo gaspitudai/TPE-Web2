@@ -1,46 +1,33 @@
 <?php
-/*
-    require_once 'php/model/ticket.model.php';
+
     require_once 'php/model/category.model.php';
-    require_once 'php/view/ticket.view.php';
+    require_once 'php/model/ticket.model.php';
 
-    class TicketController {
+    class CategoryController {
 
+        private $model;
         private $ticketModel;
-        private $categoryModel;
-        private $view;
         private $allTickets;
-        private $ticketsData;
-        private $countTickets;
+        private $allCategories;
 
         function __construct() {
+            $this->model = new CategoryModel();
             $this->ticketModel = new TicketModel();
-            $this->categoryModel = new CategoryModel();
-            $this->view = new TicketView();
-            $this->allTickets = $this->getAllTickets();
-            $this->ticketsData = $this->getTicketsData();
-            $this->countTickets = $this->getCountTickets();
+            $this->allTickets = $this->ticketModel->getTickets();
+            $this->allCategories = $this->getCategories();
         }
 
-        function getAllTickets() {
-            return $tickets = $this->ticketModel->getTickets();
-        }
-
-        function getTicketsData() {
-            $tickets = $this->ticketModel->getTickets();
-            $categories = $this->categoryModel->getCategories();
-            return array($tickets, $categories);
+        public function getCategories() {
+            return $this->model->getCategories();
         }
         
-        function getCountTickets() {
-            $tickets = $this->ticketModel->getTickets();
-            $categories = $this->categoryModel->getCategories();
+        function getQuantityTicketsByCategory() {
             $catCounts = array();
             $numId = 0;
-            for($i=0; $i<count($categories); $i++) {
+            for($i=0; $i<count($this->allCategories); $i++) {
                 $ticketsCount = 0;
                 $numId++;
-                foreach($tickets as $ticket) {
+                foreach($this->allTickets as $ticket) {
                     if($ticket->id_category == $numId) {
                         $ticketsCount++;
                     }
@@ -50,30 +37,38 @@
             return $catCounts;
         }
 
-        function getHome() {
-            $this->view->renderHome($this->allTickets, $this->ticketsData, $this->countTickets);
+/* ADMIN */        
+        
+        function addCategory() {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $id_category = $_POST['id_category'];
+            if( isset($name) && !empty($name) &&
+                isset($price) && !empty($price) &&
+                isset($id_category) && !empty($id_category))
+            {
+                $this->model->addCategory($name, $price, $id_category);
+                header('Location: '.ADMIN);
+            }
         }
 
-        function getTicketsByCategory($params = null) {
-            $category_id = $params[':ID'];
-            $ticketsByCategory = $this->ticketModel->getTickets($category_id);
-            $this->view->renderTicketsByCategory($ticketsByCategory, $params);
+        function deleteCategory($params = null) {
+            $id_ticket = $params[':ID'];
+            $this->model->deleteCategory($id_ticket);
+            header('Location: '.ADMIN);
         }
 
-        function showAllTickets() {
-            $this->view->renderAllTickets($this->allTickets, $this->countTickets);
-        }
-
-        function buyTicket($params = null) {
-            $ticket_id = $params[':ID'];
-            $this->ticketModel->deleteTicket($ticket_id);
-            $this->view->showHomeLocation();
-        }
-
-        function getTicketDetails($params = null) {
-            $ticket_id = $params[':ID'];
-            $ticket = $this->ticketModel->getTicket($ticket_id);
-            $this->view->renderTicketDetails($ticket);
+        function updateCategory() {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $id_category = $_POST['id_category'];
+            if( isset($name) && !empty($name) &&
+                isset($price) && !empty($price) &&
+                isset($id_category) && !empty($id_category))
+            {
+                $this->model->updateCategory($name, $price, $id_category);
+                header('Location: '.ADMIN);
+            }
         }
 
     }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-20 03:46:43
-  from 'C:\xampp\htdocs\WEB 2\TPE\templates\public\head.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-10-26 06:21:36
+  from 'C:\xampp\htdocs\WEB 2\TPE - copia\templates\public\head.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f8e41831075e8_77073619',
+  'unifunc' => 'content_5f965ce0372260_20277749',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '70fa70244c911b3e7d0d1dc1dea56d99906878de' => 
+    'adfb2c8ff892f476f475b3cd2d96e33a23e8be1b' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE\\templates\\public\\head.tpl',
-      1 => 1602257419,
+      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE - copia\\templates\\public\\head.tpl',
+      1 => 1603689689,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f8e41831075e8_77073619 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f965ce0372260_20277749 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,9 +40,12 @@ function content_5f8e41831075e8_77073619 (Smarty_Internal_Template $_smarty_tpl)
 >
 
     <?php echo '<script'; ?>
+ src="js/api.consumer.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
  src="js/main2.js"><?php echo '</script'; ?>
 >
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style2.css">
 </head>
 <body><?php }
 }

@@ -264,9 +264,6 @@ main {
                 }
                     .imgCardSection {
                         height: 70%;
-                        font-family: futura;
-                        color: #fff;
-                        background-size: cover;
                         border-radius: .5em .5em 0 0;
                     }
                     .priceCardSection {
@@ -275,7 +272,7 @@ main {
                         color: #fff;
                         font-size: 5em;
                     }
-                        .priceCardSection h4 {/*,.priceCardSection h2 {*/
+                        .priceCardSection h4 {
                             padding-bottom: .3em;
                         }
                     .stockCardSection {
@@ -284,9 +281,14 @@ main {
                         border-radius: 0 0 .5em .5em;
                     }
 
+                        .card-0, .card-1, .card-2, .card-3 {
+                            background-position: center;
+                            background-size: cover;
+                            font-family: futura;
+                            color: white;
+                        }
                         .card-0 {
                             background-image: url('../img/vip-card.jpg');
-                            background-position: center;
                         }
                     
                         .card-1 {

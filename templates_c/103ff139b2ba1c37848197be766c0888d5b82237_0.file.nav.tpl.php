@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-20 03:46:43
-  from 'C:\xampp\htdocs\WEB 2\TPE\templates\public\nav.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-10-26 04:30:09
+  from 'C:\xampp\htdocs\WEB 2\TPE - copia\templates\public\nav.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f8e4183396710_00747556',
+  'unifunc' => 'content_5f9642c13fa396_34790671',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '7213d3c66e91a9493ee21a3f18f600a61ef2ae89' => 
+    '103ff139b2ba1c37848197be766c0888d5b82237' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE\\templates\\public\\nav.tpl',
+      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE - copia\\templates\\public\\nav.tpl',
       1 => 1602257432,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f8e4183396710_00747556 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f9642c13fa396_34790671 (Smarty_Internal_Template $_smarty_tpl) {
 ?><nav class="fixedNav">
     <div class="navBox">
 

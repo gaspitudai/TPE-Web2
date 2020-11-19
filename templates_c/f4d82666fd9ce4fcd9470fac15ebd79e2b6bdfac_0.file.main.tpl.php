@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-20 03:46:43
-  from 'C:\xampp\htdocs\WEB 2\TPE\templates\public\main.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-10-26 04:30:09
+  from 'C:\xampp\htdocs\WEB 2\TPE - copia\templates\public\main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f8e418356ec92_54809285',
+  'unifunc' => 'content_5f9642c15092e2_95022552',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '25c95b0540b1d5bdc9a2de32d864a48bce2bfc6b' => 
+    'f4d82666fd9ce4fcd9470fac15ebd79e2b6bdfac' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE\\templates\\public\\main.tpl',
+      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE - copia\\templates\\public\\main.tpl',
       1 => 1602257587,
       2 => 'file',
     ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:public/cards.tpl' => 1,
   ),
 ),false)) {
-function content_5f8e418356ec92_54809285 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f9642c15092e2_95022552 (Smarty_Internal_Template $_smarty_tpl) {
 ?><main>
 
     <section class="ticketBox" id="ticketsSection">

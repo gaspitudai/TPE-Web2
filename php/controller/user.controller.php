@@ -1,5 +1,7 @@
 <?php
 
+    require_once 'php/controller/auth.helper.php';
+
     require_once 'php/model/user.model.php';
     require_once 'php/view/user.view.php';
     require_once 'php/controller/ticket.controller.php';
@@ -8,45 +10,31 @@
 
     class UserController {
 
-        private $userModel;
+        private $authHelper;
+        private $model;
+        private $view;
         private $ticketModel;
-        private $categoryModel;
-
-        private $userView;
-        private $userName;
-        private $allUsers;
-
         private $ticketCtrl;
+        private $categoryCtrl;
+        private $allUsers;
         private $allTickets;
         private $ticketsData;
-        private $countTickets;
+        private $quantityTicketsByCategory;
+        private $userName;
 
 
         function __construct() {
-            $this->userModel = new UserModel();
-            $this->userView = new UserView();
+            $this->authHelper = new AuthHelper();
+            $this->model = new UserModel();
+            $this->view = new UserView();
             $this->ticketModel = new TicketModel();
-            $this->categoryModel = new CategoryModel();
             $this->ticketCtrl = new TicketController();
-
-            $this->allUsers = $this->userModel->getAllUsers();
-
+            $this->categoryCtrl = new CategoryController();
+            $this->allUsers = $this->model->getAllUsers();
             $this->allTickets = $this->ticketCtrl->getAllTickets();
             $this->ticketsData = $this->ticketCtrl->getTicketsData();
-            $this->countTickets = $this->ticketCtrl->getCountTickets();
+            $this->quantityTicketsByCategory = $this->categoryCtrl->getQuantityTicketsByCategory();
         }
-
-/*  PUBLIC  */
-
-        function getLogin($msgName = null, $msgPass = null) {
-            $this->userView->renderLogin($this->allTickets, $this->ticketsData, $this->countTickets, $msgName, $msgPass);
-        }
-
-        function getSignup($message = null) {
-            $this->userView->renderSignup($this->allTickets, $this->ticketsData, $this->countTickets, $message);
-        }
-
-/*  USER  */
 
         function addUser() {
             $name = $_POST['userName'];
@@ -62,7 +50,7 @@
                 if($this->getExistingUser($name, $email) == false) {
                     $this->getSignup('User already exist');
                 } else {
-                    $this->userModel->addUser($name, $email, $encriptedPass);
+                    $this->model->addUser($name, $email, $encriptedPass);
                     $this->userName = $name;
                     $this->getVerifyUser($this->userName);
                 }
@@ -86,17 +74,13 @@
                 return false;
         }
 
-        function getVerifyUser($userName) {
-            $this->userView->renderVerify($userName, $this->ticketsData, $this->countTickets);
-        }
-
         function verifyUser(){
             $name = $_POST['userName'];
             $password = $_POST['userPassword'];
             if( isset($name) && !empty($name) &&
                 isset($password) && !empty($password))
             {
-                $user_db = $this->userModel->getUser($name);
+                $user_db = $this->model->getUser($name);
                 if(isset($user_db) && $user_db){
                     if(password_verify($password, $user_db->password)){
                         $this->userName = $name;
@@ -112,144 +96,65 @@
                 $this->getLogin('Input is empty!', '');
         }
 
+        function getLogin($msgName = null, $msgPass = null) {
+            $this->view->renderLogin($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $msgName, $msgPass);
+        }
+
+        function getSignup($message = null) {
+            $this->view->renderSignup($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $message);
+        }
+
+        function getVerifyUser($userName) {
+            $this->view->renderVerify($userName, $this->ticketsData, $this->quantityTicketsByCategory);
+        }
+
         function getWelcomeUser($userName) {
-            $this->userView->renderWelcomeHome($this->allTickets, $this->ticketsData, $this->countTickets, $userName);
+            $this->view->renderWelcomeHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $userName);
         }
 
         function getHome() {
             session_start();
-            if($this->checkLoggedIn()) {
+            if($this->authHelper->checkLoggedIn())
                 $this->getSignup('Join Up! :)');
-            } else
-                $this->userView->renderWelcomeHome($this->allTickets, $this->ticketsData, $this->countTickets, $_SESSION['NAME']);
+            else
+                $this->view->renderWelcomeHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME']);
         }
-
-/*  TICKETS  */
 
         function getTicketsByCategory($params = null) {
             $category_id = $params[':ID'];
             $ticketsByCategory = $this->ticketModel->getTickets($category_id);
             session_start();
-            if($this->checkLoggedIn()) {
+            if($this->authHelper->checkLoggedIn())
                 $this->getSignup('Join Up! :)');
-            } else
-                $this->userView->renderTicketsByCategory($ticketsByCategory, $params, $_SESSION['NAME']);
+            else
+                $this->view->renderTicketsByCategory($ticketsByCategory, $params, $_SESSION['NAME']);
         }
 
         function showAllTickets() {
             session_start();
-            if($this->checkLoggedIn()) {
+            if($this->authHelper->checkLoggedIn())
                 $this->getSignup('Join Up! :)');
-            } else
-                $this->userView->renderAllTickets($this->allTickets, $this->countTickets, $_SESSION['NAME']);
+            else
+                $this->view->renderAllTickets($this->allTickets, $this->quantityTicketsByCategory, $_SESSION['NAME']);
         }
 
         function getTicketDetails($params = null) {
             $ticket_id = $params[':ID'];
             $ticket = $this->ticketModel->getTicket($ticket_id);
-            $this->userView->renderTicketDetails($ticket);
+            $this->view->renderTicketDetails($ticket);
         }
-
-        function checkLoggedIn() {
-            return !isset($_SESSION['NAME']);
-        }
-
-        function logOut(){
+                    
+        function getAdminHome() {
             session_start();
-            session_destroy();
-            header('Location: '.BASE_URL);
-        }
-
-/* ADMIN ==============================================================================*/
-        
-    function getAdminHome() {
-        session_start();
-        if($this->checkLoggedIn())
-            $this->getSignup('Join Up! :)');
-        else {
-            $user_db = $this->userModel->getUser($_SESSION['NAME']);
-            if($user_db->clearence == 'admin') {
-                $this->userView->renderAdminHome($this->allTickets, $this->ticketsData, $this->countTickets, $_SESSION['NAME']);
-            } else {
-                $this->getLogin('You have not permission. Enter valid admin:');
-            }
-        }
-    }
-
-// Add
-
-        function addTicket() {
-            $name = $_POST['name'];
-            $date = $_POST['date'];
-            $category = $_POST['category'];
-            $count = $_POST['count'];
-            if( isset($name) && !empty($name) &&
-                isset($date) && !empty($date) &&
-                isset($category) && !empty($category) &&
-                isset($count) && !empty($count))
-            {
-                for($i=0; $i<$count; $i++) {
-                    $this->ticketModel->addTicket($name, $date, $category);
-                }
-                header('Location: '.ADMIN);
-            }
-        }
-        
-        function addCategory() {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $id_category = $_POST['id_category'];
-            if( isset($name) && !empty($name) &&
-                isset($price) && !empty($price) &&
-                isset($id_category) && !empty($id_category))
-            {
-                $this->categoryModel->addCategory($name, $price, $id_category);
-                header('Location: '.ADMIN);
+            if($this->authHelper->checkLoggedIn())
+                $this->getSignup('Join Up! :)');
+            else {
+                $user_db = $this->model->getUser($_SESSION['NAME']);
+                if($user_db->clearence == 'admin')
+                    $this->view->renderAdminHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME']);
+                else
+                    $this->getLogin('You have not permission. Enter valid admin:');               
             }
         }
 
-// Delete
-
-        function deleteTicket($params = null) {
-            $id_ticket = $params[':ID'];
-            $this->ticketModel->deleteTicket($id_ticket);
-            header('Location: '.ADMIN);
-        }
-
-        function deleteCategory($params = null) {
-            $id_ticket = $params[':ID'];
-            $this->categoryModel->deleteCategory($id_ticket);
-            header('Location: '.ADMIN);
-        }
-
-// Update
-
-        function updateTicket() {
-            $name = $_POST['name'];
-            $date = $_POST['date'];
-            $id_category = $_POST['category'];
-            $id_ticket = $_POST['id_ticket'];
-            if( isset($name) && !empty($name) &&
-                isset($date) && !empty($date) &&
-                isset($id_category) && !empty($id_category) &&
-                isset($id_ticket) && !empty($id_ticket))
-            {
-                $this->ticketModel->updateTicket($name, $date, $id_category, $id_ticket);
-                header('Location: '.ADMIN);
-            }
-        }
-
-        function updateCategory() {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $id_category = $_POST['id_category'];
-            if( isset($name) && !empty($name) &&
-                isset($price) && !empty($price) &&
-                isset($id_category) && !empty($id_category))
-            {
-                $this->categoryModel->updateCategory($name, $price, $id_category);
-                header('Location: '.ADMIN);
-            }
-        }
-        
-    }
+}

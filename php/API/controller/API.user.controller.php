@@ -2,30 +2,64 @@
 
     require_once 'php/model/user.model.php';
     require_once 'php/API/view/API.view.php';
+    require_once 'php/API/controller/API.controller.php';
 
-    class APIUserController {
+    class APIUserController extends APIController {
 
-        private $userModel;
+        private $model;
         private $view;
 
         function __construct() {
-            $this->userModel = new UserModel();
+            parent::__construct();
+            $this->model = new UserModel();
             $this->view = new APIView();
         }
 
-        function getAll() {
-            $users = $this->userModel->getAllUsers();
+        public function getAll() {
+            $users = $this->model->getAllUsers();
             $this->view->response($users, 200);
         }
 
-        function getUser($params = null) {
+        public function getUser($params = null) {
             $id = $params[':ID'];
-            $user = $this->userModel->getUserByID($id);
-            if($user)
+            $user = $this->model->getUserByID($id);
+            if ($user)
                 $this->view->response($user, 200);
             else
-                $this->view->response("User $id do not exist", 404);   
+                $this->view->response("User $id do not exist :(", 404);   
+        }
+
+        public function deleteUser($params = null) {
+            $id = $params[':ID'];
+            $result =  $user = $this->model->deleteUserFromAPI($id);
+            if($result > 0)
+                $this->view->response("User $id has deleted", 200);
+            else
+                $this->view->response("User $id do not exist :(", 404);
+        }
+
+        public function updateUser($params = null) {
+            $id = $params[':ID'];
+            $body = $this->getData();
+            $user = $this->model->getUserByID($id);
+            if (empty($user)) {
+                $this->view->response("User $id do not exist :(", 404);
+            }else {
+                $result = $this->model->updateUserFromAPI($body->name,$body->email,$body->password,$body->clearence,$id);
+                if($result > 0)
+                    $this->view->response( $this->model->getUserByID($id), 200);
+                else
+                    $this->view->response("User $id has not update :(", 204);
+            }
+        }
+
+        public function addUser() {
+            $body = $this->getData();
+            $id = $this->model->addUserFromAPI($body->name,$body->email,$body->password,$body->clearence);
+            if($id)
+                $this->view->response( $this->model->getUserByID($id), 200);
+            else
+                $this->view->response("User has not insert", 404);
         }
         
-
     }

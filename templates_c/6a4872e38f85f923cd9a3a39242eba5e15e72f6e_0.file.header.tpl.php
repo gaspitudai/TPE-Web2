@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-20 03:46:43
-  from 'C:\xampp\htdocs\WEB 2\TPE\templates\public\header.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-10-26 04:30:09
+  from 'C:\xampp\htdocs\WEB 2\TPE - copia\templates\public\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f8e4183487615_96361807',
+  'unifunc' => 'content_5f9642c1482e19_35649811',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'e72a8d90d37e8969625af22ce36838ac9d51fced' => 
+    '6a4872e38f85f923cd9a3a39242eba5e15e72f6e' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE\\templates\\public\\header.tpl',
+      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE - copia\\templates\\public\\header.tpl',
       1 => 1602257435,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f8e4183487615_96361807 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f9642c1482e19_35649811 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header>
 
     <div class="headerBox">

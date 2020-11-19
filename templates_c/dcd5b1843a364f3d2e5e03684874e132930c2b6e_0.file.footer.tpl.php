@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-20 03:46:43
-  from 'C:\xampp\htdocs\WEB 2\TPE\templates\public\footer.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-10-26 04:30:09
+  from 'C:\xampp\htdocs\WEB 2\TPE - copia\templates\public\footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f8e41838f23a0_46629887',
+  'unifunc' => 'content_5f9642c185b547_57497600',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '4a168caab3cb25af29c8a26b85878d2ccf2bf5f2' => 
+    'dcd5b1843a364f3d2e5e03684874e132930c2b6e' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE\\templates\\public\\footer.tpl',
+      0 => 'C:\\xampp\\htdocs\\WEB 2\\TPE - copia\\templates\\public\\footer.tpl',
       1 => 1602257448,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f8e41838f23a0_46629887 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f9642c185b547_57497600 (Smarty_Internal_Template $_smarty_tpl) {
 ?>        <section class="iframeSoundcloud" id="iframeSoundcloud">
         <iframe 
             width="100%" 
