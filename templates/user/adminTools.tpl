@@ -12,7 +12,9 @@
         
         <section class="ticketsTableSection">
 
-<!-- Tickets -->
+<!-- TICKETS -->
+
+            <h2>TICKETS</h2>
 
             <div class="tableBoxHead">
                 <table>
@@ -128,7 +130,9 @@
 
             </section>
 
-<!-- Categories -->
+<!-- CATEGORIES -->
+
+            <h2>CATEGORIES</h2>
 
             <div class="tableBoxHead">
                 <table>
@@ -231,6 +235,61 @@
 
                     </div>
                     <button type="submit" id="js-btn-updateCategory"><i class="fas fa-check"></i></button>
+                </form>
+
+            </section>
+
+<!-- USERS -->
+
+            <h2>USERS</h2>
+
+            <div class="tableBoxHead">
+                <table>
+                    <thead>
+                        <tr class="trHead">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Clearence</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$allUsers item=user}
+                            <tr>
+                                <td>{$user->user_id}</td>
+                                <td>{$user->name|upper}</td>
+                                <td>{$user->email}</td>
+                                <td>{$user->clearence}</td>
+                                <td class="tdButton">
+                                    <button class="js-btn-deleteUser" data-id="{$user->user_id}"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            </div>
+
+            <section class="adminSection">
+                <label for="">UPDATE</label>
+                <form action="updateUser" class="admin-form" method="POST">
+                    <div>
+
+                        <label for="user_id">Name</label>
+                        <select name="user_id">
+                            {foreach from=$allUsers item=user}
+                                <option value="{$user->user_id}">{$user->name}</option>
+                            {/foreach}
+                        </select>
+
+                        <label for="clearence">Clearence</label>
+                        <select name="clearence">
+                            <option value="admin">admin</option>
+                            <option value="null">null</option>
+                        </select>
+
+                    </div>
+                    <button type="submit" id="js-btn-updateUser"><i class="fas fa-check"></i></button>
                 </form>
 
             </section>

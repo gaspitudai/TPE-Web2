@@ -40,6 +40,7 @@
             $name = $_POST['userName'];
             $email = $_POST['userEmail'];
             $password = $_POST['userPassword'];
+            $clearence = 'null';
             if( isset($name) && !empty($name) &&
                 isset($email) && !empty($email) &&
                 isset($password) && !empty($password))
@@ -50,9 +51,9 @@
                 if($this->getExistingUser($name, $email) == false) {
                     $this->getSignup('User already exist');
                 } else {
-                    $this->model->addUser($name, $email, $encriptedPass);
+                    $this->model->addUser($name, $email, $encriptedPass, $clearence);
                     $this->userName = $name;
-                    $this->getVerifyUser($this->userName);
+                    $this->getWelcomeUser($this->userName);
                 }
 
             } else
@@ -86,7 +87,7 @@
                         $this->userName = $name;
                         session_start();
                         $_SESSION['NAME'] = $user_db->name;
-        //              $_SESSION['LAST_ACTIVITY'] = time();
+                        //$_SESSION['LAST_ACTIVITY'] = time();
                         $this->getWelcomeUser($user_db->name);
                     } else
                         $this->getLogin('', 'Invalid password');
@@ -95,7 +96,7 @@
             } else
                 $this->getLogin('Input is empty!', '');
         }
-
+        
         function getLogin($msgName = null, $msgPass = null) {
             $this->view->renderLogin($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $msgName, $msgPass);
         }
@@ -141,7 +142,7 @@
         function getTicketDetails($params = null) {
             $ticket_id = $params[':ID'];
             $ticket = $this->ticketModel->getTicket($ticket_id);
-            $this->view->renderTicketDetails($ticket);
+            $this->view->renderTicketDetails($ticket, $this->userName);
         }
                     
         function getAdminHome() {
@@ -151,10 +152,36 @@
             else {
                 $user_db = $this->model->getUser($_SESSION['NAME']);
                 if($user_db->clearence == 'admin')
-                    $this->view->renderAdminHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME']);
+                    $this->view->renderAdminHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME'],$this->allUsers);
                 else
-                    $this->getLogin('You have not permission. Enter valid admin:');               
+                    //$this->getLogin('You have not permission. Enter valid admin:');               
+                    $this->showAdvertence('You have not permission. Enter valid admin:');               
             }
         }
+        
+        function showAdvertence($advertence) {
+            $this->view->renderAdvertence($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME'], $advertence);
+        }
+
+//ADMIN
+
+        function updateUserClearence() {
+            $user_id = $_POST['user_id'];
+            $clearence = $_POST['clearence'];
+            if( isset($user_id) && !empty($user_id) &&
+                isset($clearence) && !empty($clearence))
+            {
+                $this->model->updateUserClearence($user_id, $clearence);
+                header('Location: '.ADMIN);
+            }
+        }
+
+        function deleteUser($params = null) {
+            $user_id = $params[':ID'];
+            $this->model->deleteUser($user_id);
+            header('Location: '.ADMIN);
+        }
+
+        
 
 }

@@ -55,4 +55,8 @@
     
     </section>
 
+    <section class="comments-section">
+        
+    </section>
+
 {include file='../../public/footer.tpl'}

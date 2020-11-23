@@ -11,7 +11,7 @@
 
     $r = new Router();
 
-/* Public =================================================================================== */
+/* PUBLIC */
 
     $r->addRoute('home', 'GET', 'TicketController', 'getHome');
 
@@ -19,7 +19,7 @@
     $r->addRoute('tickets-all', 'GET', 'TicketController', 'showAllTickets');
     $r->addRoute('ticket-detail/:ID', 'GET', 'TicketController', 'getTicketDetails');
 
-/* User ===================================================================================== */
+/* USER */
 
     $r->addRoute('signup', 'GET', 'UserController', 'getSignup');
     $r->addRoute('login', 'GET', 'UserController', 'getLogin');
@@ -34,9 +34,9 @@
     $r->addRoute('user/tickets-all', 'GET', 'UserController', 'showAllTickets');
     $r->addRoute('user/ticket-detail/:ID', 'GET', 'UserController', 'getTicketDetails');
 
+/* ADMIN */
+    
     $r->addRoute('admin', 'GET', 'UserController', 'getAdminHome');
-
-/* Admin ===================================================================================== */
 
     $r->addRoute('addTicket', 'POST', 'TicketController', 'addTicket');
     $r->addRoute('deleteTicket/:ID', 'GET', 'TicketController', 'deleteTicket');
@@ -46,8 +46,13 @@
     $r->addRoute('deleteCategory/:ID', 'GET', 'CategoryController', 'deleteCategory');
     $r->addRoute('updateCategory', 'POST', 'CategoryController', 'updateCategory');
     
-/* Default ================================================================================== */
+    $r->addRoute('updateUser', 'POST', 'UserController', 'updateUserClearence');
+    $r->addRoute('deleteUser/:ID', 'GET', 'UserController', 'deleteUser');
+    
+/* DEFAULT */
 
     $r->setDefaultRoute('TicketController', 'getHome');
     
     $r->route($_GET['action'], $_SERVER['REQUEST_METHOD']);
+
+

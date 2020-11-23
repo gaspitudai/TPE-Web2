@@ -29,12 +29,24 @@
             return $query->fetch(PDO::FETCH_OBJ);
         }
 
-        function addUser($name, $email, $password) {
-            $query = $this->db->prepare('INSERT INTO users(name, email, password) VALUES(?, ?, ?)');
-            $query->execute(array($name, $email, $password));
+        function addUser($name, $email, $password, $clearence) {
+            $query = $this->db->prepare('INSERT INTO users(name, email, password, clearence) VALUES(?, ?, ?, ?)');
+            $query->execute(array($name, $email, $password, $clearence));
         }
 
-// API
+//ADMIN
+
+        function updateUserClearence($user_id, $clearence) {
+            $query = $this->db ->prepare('UPDATE users SET clearence=? WHERE user_id=?');
+            $query ->execute(array($clearence, $user_id));
+        }
+        
+        function deleteUser($user_id) {
+            $query = $this->db->prepare('DELETE FROM users WHERE user_id=?');
+            $query->execute(array($user_id));
+        }
+
+//API
         
         function deleteUserFromAPI($user_id){
             $query = $this->db->prepare("DELETE FROM users WHERE user_id=?");

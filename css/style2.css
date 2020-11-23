@@ -545,6 +545,39 @@ main {
                 font-size: 2em;
             }
 
+
+/* COMMENTS */
+
+    .comments-section {
+        width: 50vw;
+        height: 20vh;
+        border: 1px solid red;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* SOUNDCLOUD IFRAME*/
 
 .iframeSoundcloud {

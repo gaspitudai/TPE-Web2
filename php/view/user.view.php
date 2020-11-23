@@ -24,13 +24,23 @@
             $this->smarty->display('templates/public/login.tpl');
         }
 
+        function renderAdvertence($allTickets, $ticketsData, $countTickets, $userName, $advertence) {
+            $this->smarty->assign('title', $userName);
+            $this->smarty->assign('advertence', $advertence);
+            $this->smarty->assign('userName', $userName);
+            $this->smarty->assign('allTickets', $allTickets);
+            $this->smarty->assign('ticketsData', $ticketsData);
+            $this->smarty->assign('countTickets', $countTickets);
+            $this->smarty->display('templates/user/welcome/index-advertence.tpl');
+        }
+
         function renderSignup($allTickets, $ticketsData, $countTickets, $message) {
             $this->smarty->assign('title', $this->title.'Sing Up');
             $this->smarty->assign('allTickets', $allTickets);
             $this->smarty->assign('ticketsData', $ticketsData);
             $this->smarty->assign('countTickets', $countTickets);
             $this->smarty->assign('message', $message);
-            $this->smarty->display('templates/public/signup.tpl');
+            $this->smarty->display('templates/user/welcome/index.tpl');
         }
 
 /*  USER  */
@@ -45,6 +55,7 @@
 
         function renderWelcomeHome($allTickets, $ticketsData, $countTickets, $userName) {
             $this->smarty->assign('title', $this->title.$userName);
+            $this->smarty->assign('allTickets', $allTickets);
             $this->smarty->assign('ticketsData', $ticketsData);
             $this->smarty->assign('countTickets', $countTickets);
             $this->smarty->assign('userName', $userName);
@@ -67,14 +78,15 @@
             $this->smarty->display('templates/user/ticket/index-all.tpl');
         }
 
-        function renderTicketDetails($ticket) {
+        function renderTicketDetails($ticket, $userName) {
             $this->smarty->assign('title', $userName.' | Details ticket');
             $this->smarty->assign('ticket', $ticket);
             $this->smarty->display('templates/user/ticket/index-details.tpl');
         }
 
-        function renderAdminHome($allTickets, $ticketsData, $countTickets, $userName) {
+        function renderAdminHome($allTickets, $ticketsData, $countTickets, $userName, $allUsers) {
             $this->smarty->assign('title', $userName.' | ADMIN');
+            $this->smarty->assign('allUsers', $allUsers);
             $this->smarty->assign('userName', $userName);
             $this->smarty->assign('allTickets', $allTickets);
             $this->smarty->assign('ticketsData', $ticketsData);

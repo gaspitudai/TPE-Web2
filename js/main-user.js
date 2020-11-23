@@ -85,6 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
+    document.querySelector('#js-btnClose-advertence').addEventListener('click', () => {
+        window.location.href='user';
+    })
+
 
 
     

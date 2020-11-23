@@ -28,6 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
         let id = btnEdit.dataset.id;
         window.location.href=`deleteCategory/${id}`;
     }
+
+// Delete user
+
+    let btnsDeleteUser = document.querySelectorAll(".js-btn-deleteUser");
+    for(let btn of btnsDeleteUser) {
+        btn.addEventListener('click', () => {
+            deleteUser(btn);
+        });
+    }
+
+    function deleteUser(btnEdit) {
+        let id = btnEdit.dataset.id;
+        window.location.href=`deleteUser/${id}`;
+    }
     
 // Go to Home: Logo WAV
 
