@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2020 a las 09:17:04
+-- Tiempo de generación: 28-11-2020 a las 23:39:18
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -41,7 +41,31 @@ INSERT INTO `category` (`id_category`, `name`, `price`) VALUES
 (1, 'vip', 750),
 (2, 'popular', 320),
 (3, 'promo', 0),
-(4, 'sale', 100);
+(4, 'sale', 100),
+(28, 'asdasd', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comment`
+--
+
+CREATE TABLE `comment` (
+  `comment_id` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `ticket_id` int(11) NOT NULL,
+  `user_id` int(100) NOT NULL,
+  `score` int(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comment`
+--
+
+INSERT INTO `comment` (`comment_id`, `description`, `ticket_id`, `user_id`, `score`) VALUES
+(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa rem perspiciatis veritatis corrupti perferendis magnam accusantium blanditiis minus dignissimos, itaque reiciendis dolorum, praesentium voluptas consequuntur, velit necessitatibus vero? Dolorum', 41, 65, 5),
+(2, 'Que bueno que estuvo. Gracias po rtodoo!', 35, 67, 3),
+(8, 'asdf asd vasdf asddf asdfawdasdfva', 35, 67, 5);
 
 -- --------------------------------------------------------
 
@@ -61,10 +85,6 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`id_ticket`, `name`, `date`, `id_category`) VALUES
-(28, 'Paul Deep', '2020-11-05', 1),
-(32, 'Paul Deep', '2020-10-24', 1),
-(33, 'Paul Deep', '2020-10-24', 1),
-(34, 'Paul Deep', '2020-10-24', 1),
 (35, 'Paul Deep', '2020-10-24', 1),
 (36, 'Paul Deep', '2020-10-24', 1),
 (37, 'Paul Deep', '2020-10-24', 1),
@@ -255,7 +275,7 @@ INSERT INTO `ticket` (`id_ticket`, `name`, `date`, `id_category`) VALUES
 (222, 'Paul Deep', '2020-10-24', 2),
 (223, 'Paul Deep', '2020-10-24', 2),
 (224, 'Paul Deep', '2020-10-24', 2),
-(225, 'Paul Deep', '2020-10-24', 2),
+(225, 'Dig Weed', '2020-11-04', 2),
 (226, 'Paul Deep', '2020-10-24', 2),
 (227, 'Paul Deep', '2020-10-24', 2),
 (228, 'Paul Deep', '2020-10-24', 2),
@@ -660,7 +680,16 @@ INSERT INTO `ticket` (`id_ticket`, `name`, `date`, `id_category`) VALUES
 (703, 'Latmun', '2020-10-15', 4),
 (704, 'Paul Deep', '2020-11-15', 1),
 (705, 'Paul Deep', '2020-11-15', 1),
-(706, 'Paul Deep', '2020-11-15', 1);
+(706, 'Paul Deep', '2020-11-15', 1),
+(707, 'Dig Weed', '2020-11-05', 4),
+(710, 'Dig Weed', '2020-11-05', 4),
+(711, 'Nicholas', '2020-11-07', 1),
+(712, 'Nicholas', '2020-11-07', 1),
+(713, 'Nicholas', '2020-11-07', 1),
+(714, 'Nicholas', '2020-11-07', 1),
+(715, 'Nicholas', '2020-11-07', 1),
+(716, 'Paul Deep', '2020-11-15', 1),
+(717, 'Paul Deep', '2020-11-15', 1);
 
 -- --------------------------------------------------------
 
@@ -682,7 +711,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `clearence`) VALUES
 (65, 'GASPI', 'gaspi.tudai@gmail.com', '$2y$10$d/AcpkdKVEeHr7Cd/uAM/.EYA86EsjR/Noy/avzyB4UkpztWlCuYq', 'admin'),
-(67, 'ARIEL', 'arielvincennao@hotmail.com', '$2y$10$8Xt2oAL8ZazAXNS5bQxT5eA9lT.myDGgHRrt41BcytlPlqdWvuXHW', 'admin');
+(67, 'ARIEL', 'arielvincennao@hotmail.com', '$2y$10$8Xt2oAL8ZazAXNS5bQxT5eA9lT.myDGgHRrt41BcytlPlqdWvuXHW', 'admin'),
+(120, 'TEST', 'test@test', '$2y$10$IBMxqbp6Azq6myyrptTEwO8L92ArZ7ChAs4vWVi9TCEolkjhBI23K', 'null');
 
 --
 -- Índices para tablas volcadas
@@ -693,6 +723,14 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `clearence`) VALUES
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id_category`);
+
+--
+-- Indices de la tabla `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `ticket_id` (`ticket_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indices de la tabla `ticket`
@@ -715,23 +753,36 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `category`
 --
 ALTER TABLE `category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de la tabla `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=707;
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=718;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id_ticket`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ticket`
