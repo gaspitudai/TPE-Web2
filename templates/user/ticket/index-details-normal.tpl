@@ -1,4 +1,4 @@
-{include file='user/welcome/head.tpl'}
+{include file='user/welcome/head-normalUser.tpl'}
 
 <div class="backToHome-arrow-box">
     <a href="user" class="color-primary"><i class="fas fa-arrow-left"></i></a>
@@ -55,6 +55,9 @@
     </section>
 
     <div id="comment-box-ajax">
+    
+    </div>
+    <div id="commentForm-box-ajax">
     
     </div>
 

@@ -1,7 +1,6 @@
 <?php
 
     require_once 'php/controller/auth.helper.php';
-
     require_once 'php/model/user.model.php';
     require_once 'php/view/user.view.php';
     require_once 'php/controller/ticket.controller.php';
@@ -53,7 +52,9 @@
                 } else {
                     $this->model->addUser($name, $email, $encriptedPass, $clearence);
                     $this->userName = $name;
-                    $this->getWelcomeUser($this->userName);
+                    session_start();
+                    $_SESSION['NAME'] = $name;
+                    $this->getWelcomeUser($name);
                 }
 
             } else
@@ -139,11 +140,11 @@
                 $this->view->renderAllTickets($this->allTickets, $this->quantityTicketsByCategory, $_SESSION['NAME']);
         }
 
-        function getTicketDetails($params = null) {
-            $ticket_id = $params[':ID'];
-            $ticket = $this->ticketModel->getTicket($ticket_id);
-            $this->view->renderTicketDetails($ticket, $this->userName);
-        }
+        // function getTicketDetails($params = null) {
+        //     $ticket_id = $params[':ID'];
+        //     $ticket = $this->ticketModel->getTicket($ticket_id);
+        //     $this->view->renderTicketDetails($ticket, $this->userName);
+        // }
                     
         function getAdminHome() {
             session_start();

@@ -32,7 +32,7 @@
 
     $r->addRoute('user/tickets-category/:ID', 'GET', 'UserController', 'getTicketsByCategory');
     $r->addRoute('user/tickets-all', 'GET', 'UserController', 'showAllTickets');
-    $r->addRoute('user/ticket-detail/:ID', 'GET', 'UserController', 'getTicketDetails');
+    $r->addRoute('user/ticket-detail/:ID', 'GET', 'TicketController', 'getTicketDetails');
 
 /* ADMIN */
     

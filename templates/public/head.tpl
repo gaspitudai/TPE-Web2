@@ -10,8 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://kit.fontawesome.com/3404ee6456.js" crossorigin="anonymous"></script>
 
-    <script src="js/api.consumer.js"></script>
     <script src="js/main2.js"></script>
-    <link rel="stylesheet" href="css/style2.css">
+    <script src="js/comments-public.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

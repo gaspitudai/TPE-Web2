@@ -78,12 +78,6 @@
             $this->smarty->display('templates/user/ticket/index-all.tpl');
         }
 
-        function renderTicketDetails($ticket, $userName) {
-            $this->smarty->assign('title', $userName.' | Details ticket');
-            $this->smarty->assign('ticket', $ticket);
-            $this->smarty->display('templates/user/ticket/index-details.tpl');
-        }
-
         function renderAdminHome($allTickets, $ticketsData, $countTickets, $userName, $allUsers) {
             $this->smarty->assign('title', $userName.' | ADMIN');
             $this->smarty->assign('allUsers', $allUsers);
