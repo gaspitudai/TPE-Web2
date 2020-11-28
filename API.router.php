@@ -1,12 +1,18 @@
 <?php
 
+//    require_once 'php/API/controller/API.all.controller.php';
     require_once 'php/API/controller/API.ticket.controller.php';
     require_once 'php/API/controller/API.category.controller.php';
     require_once 'php/API/controller/API.user.controller.php';
-//    require_once 'php/API/controller/API.all.controller.php';
+    require_once 'php/API/controller/API.comment.controller.php';
     require_once 'RouterClass.php';
 
     $r = new Router();
+
+    $r->addRoute('comments', 'GET', 'APICommentController', 'getAll');
+    $r->addRoute('post-comment', 'POST', 'APICommentController', 'postComment');
+
+    /*
 
     $r->addRoute('tickets', 'GET', 'APITicketController', 'getAll');
     $r->addRoute('ticket/:ID', 'GET', 'APITicketController', 'getTicket');
@@ -27,6 +33,8 @@
     $r->addRoute('user', 'POST', 'APIUserController', 'addUser');
     
     $r->addRoute('wav.music', 'GET', 'APIAllController', 'getAll');
+
+    */
 
     $r->route($_GET['resource'], $_SERVER['REQUEST_METHOD']);
 

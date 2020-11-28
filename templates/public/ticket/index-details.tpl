@@ -11,6 +11,10 @@
         {include file='public/ticket/details.tpl'}
     
     </section>
+
+    <div id="comment-box-ajax">
+    
+    </div>
     
 {include file='public/footer.tpl'}
     

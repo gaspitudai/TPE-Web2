@@ -1,8 +1,11 @@
 <?php
 
-    require_once 'php/model/ticket.model.php';
-    require_once 'php/controller/category.controller.php';
-    require_once 'php/view/ticket.view.php';
+require_once 'php/model/ticket.model.php';
+require_once 'php/controller/category.controller.php';
+require_once 'php/view/ticket.view.php';
+require_once 'php/controller/auth.helper.php';
+require_once 'php/view/user.view.php';
+require_once 'php/model/user.model.php';
 
     class TicketController {
 
@@ -13,11 +16,19 @@
         private $allCategories;
         private $ticketsData;
         private $quantityTicketsByCategory;
+        private $authHelper;
+        private $userView;
+        private $userModel;
+        private $users;
         
         function __construct() {
             $this->model = new TicketModel();
             $this->categoryCtrl = new CategoryController();
             $this->view = new TicketView();
+            $this->authHelper = new AuthHelper();
+            $this->userView = new UserView();
+            $this->userModel = new UserModel();
+            $this->users = $this->userModel->getAllUsers();
             $this->allTickets = $this->getAllTickets();
             $this->allCategories = $this->categoryCtrl->getCategories();
             $this->ticketsData = $this->getTicketsData();
@@ -45,11 +56,25 @@
         function showAllTickets() {
             $this->view->renderAllTickets($this->allTickets, $this->quantityTicketsByCategory);
         }
-
+        
         function getTicketDetails($params = null) {
             $ticket_id = $params[':ID'];
             $ticket = $this->model->getTicket($ticket_id);
-            $this->view->renderTicketDetails($ticket);
+            session_start();
+            if($this->authHelper->checkLoggedIn()) { 
+                $this->view->renderTicketDetails($ticket);
+            } else {
+                foreach($this->users as $user) {
+                    if($user->name == $_SESSION['NAME']) {
+                        $userClearence = $user->clearence;
+                    }
+                }
+                if($userClearence == 'admin') {
+                    $this->view->renderTicketDetailsAdmin($ticket);
+                } else {
+                    $this->view->renderTicketDetailsNormal($ticket);
+                }
+            }
         }
 
 /* ADMIN */

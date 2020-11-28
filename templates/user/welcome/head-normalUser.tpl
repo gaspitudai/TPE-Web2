@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/3404ee6456.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/comments.js"></script>
+    <script src="js/comments-normalUser.js"></script>
     <script src="js/main-user.js"></script>
 </head>
 <body>

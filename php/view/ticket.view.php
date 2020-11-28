@@ -40,6 +40,18 @@
             $this->smarty->display('templates/public/ticket/index-details.tpl');
         }
 
+        function renderTicketDetailsNormal($ticket) {
+            $this->smarty->assign('title', 'Details ticket');
+            $this->smarty->assign('ticket', $ticket);
+            $this->smarty->display('templates/user/ticket/index-details-normal.tpl');
+        }
+
+        function renderTicketDetailsAdmin($ticket) {
+            $this->smarty->assign('title', 'Details ticket');
+            $this->smarty->assign('ticket', $ticket);
+            $this->smarty->display('templates/user/ticket/index-details.tpl');
+        }
+
         function showHomeLocation(){
             header('Location:'.BASE_URL);
         }
