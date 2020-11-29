@@ -1,34 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
+    
+    function onInitComments() {
+        let ticket_id = document.querySelector('#ticket_id').value;
+        let url = setFetchURL('comments', ticket_id);
+        getComments(url);
+        const submitButton = document.querySelector('#comment-submit-btn')
+        submitButton.addEventListener('click', submitComment);
+    } 
+    onInitComments();
 
-    function onInitCommentsSection() {
-        const formContainer = document.querySelector('#commentForm-box-ajax');
-        renderFormComment(formContainer);
-        setFetchURL();
+    function setFetchURL(coll, id) {
+        let urlWeb = 'http://localhost/TPE/api/';
+        let collectionID = coll;
+        let groupID = id;
+        return urlWeb + collectionID + '/' + groupID;
     }
-    onInitCommentsSection();
-
-    function setFetchURL() {
-        let urlWeb = 'http://localhost/WEB 2/TPE/api/';
-        let collectionID = 'comments';
-        let groupID = '';
-        getComments(urlWeb, collectionID, groupID);
-    }
-
-    function getComments(urlWeb, collectionID, groupID) {
-        fetch(urlWeb + collectionID + "/" + groupID, {
-            "method": "GET",
-            "mode": 'cors',
+    
+    function getComments(url) {
+        fetch(url, {
+            'method': 'GET',
+            'mode': 'cors',
         })
         .then(resp => resp.json())
-        .then(comments => {
-            renderComments(comments);
-        })
-        .catch(exc => console.log('Catch exc: ' + exc))
+        .then(comments =>  renderComments(comments))
+        .catch(exc => console.log('Catch exc GET: ' + exc))
     }
 
     function renderComments(comments) {
-        let commentsContainer = document.querySelector('#comment-box-ajax');
+
+        const commentsContainer = document.querySelector('#comment-box-ajax');
 
         for(let i=0; i<comments.length; i++) {
 
@@ -64,86 +65,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function renderFormComment(formContainer) {
-        let cSection = document.createElement('section');
-        let cForm = document.createElement('form');
-        let inpBox = document.createElement('div');
-        let cInput = document.createElement('input');
-        let scoreSelect = document.createElement('select');
-        let op5 = document.createElement('option');
-        let op4 = document.createElement('option');
-        let op3 = document.createElement('option');
-        let op2 = document.createElement('option');
-        let op1 = document.createElement('option');
-        let submitButton = document.createElement('button');
-
-        cSection.className = 'comments-section logBox comment-box';
-        cForm.className = 'formLogin comment-form';
-        cForm.action = 'post-comment';
-        cForm.method = 'post';
-        inpBox.className = 'inpBox';
-        cInput.className = 'inp-log';
-        cInput.placeholder = '. . .';
-        cInput.id = 'comment-inp'
-        cInput.name = 'comment-inp';
-        cInput.type = 'text';
-        scoreSelect.name = 'score-select';
-        scoreSelect.id = 'score-select';
-        op5.value = 5;
-        op4.value = 4;
-        op3.value = 3;
-        op2.value = 2;
-        op1.value = 1;
-        submitButton.id = 'comment-submit-btn';
-
-        formContainer.appendChild(cSection);
-            cSection.appendChild(cForm);
-                cForm.appendChild(inpBox);
-                    inpBox.appendChild(cInput);
-                    inpBox.appendChild(scoreSelect);
-                        scoreSelect.appendChild(op5);
-                        scoreSelect.appendChild(op4);
-                        scoreSelect.appendChild(op3);
-                        scoreSelect.appendChild(op2);
-                        scoreSelect.appendChild(op1);
-                        op5.innerHTML = 5;
-                        op4.innerHTML = 4;
-                        op3.innerHTML = 3;
-                        op2.innerHTML = 2;
-                        op1.innerHTML = 1;
-                cForm.appendChild(submitButton);
-                    submitButton.innerHTML = 'Send comment';
-
-        submitButton.addEventListener('click', () => {
-            let comment = cInput.value;
-            let score = scoreSelect.value;
-            let urlWeb = 'http://localhost/WEB 2/TPE/api/';
-            let collectionID = 'comments';
-            let groupID = '';
-            postComment(urlWeb, collectionID, groupID, comment, score);
-        })
-        
+    function submitComment(e) {
+        e.preventDefault();
+        let url = setFetchURL('post-comment', '');
+        let description = document.querySelector('#comment-inp').value;
+        let ticket_id = document.querySelector('#ticket_id').value;
+        let user_id = document.querySelector('#user_id').value;
+        let score = document.querySelector('#score-select').value;
+        let user_name = document.querySelector('#user_name').value;
+        postComment(url, description, ticket_id, user_id, score, user_name);
     }
 
-    function postComment(urlWeb, collectionID, groupID, comment, score) {
+    function postComment(url, description, ticket_id, user_id, score, user_name) {
         let data = {
-            "description": comment,
-            "score": score,
+            'description': description,
+            'ticket_id': ticket_id,
+            'user_id': user_id,
+            'score': score,
+            'user_name': user_name
         };
-        let arrComment = [];
-        for (let i = 0; i < cant; i++) {
-            let promise = fetch(urlWeb + collectionID + "/" + groupID, {
-                "method": "POST",
-                "mode": 'cors',
-                "headers": { "Content-Type": "application/json" },
-                "body": JSON.stringify(data)
-            })
-            arrComment.push(promise);
-        }
-        Promise.all(arrComment).then(comments => {
-            renderComments(comments);
+        fetch(url, {
+            'method': 'POST',
+            'mode': 'cors',
+            'headers': { 'Content-Type': 'application/json' },
+            'body': JSON.stringify(data)
         })
-
+        .then(resp => renderAction())
+    }
+    
+    function renderAction() {
+        document.querySelector('#comment-box-ajax').innerHTML = '';
+        let ticket_id = document.querySelector('#ticket_id').value;
+        getComments('http://localhost/TPE/api/comments/'+ticket_id);
     }
 
 })
