@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 3. Go to Home: Logo WAV
 
     document.getElementById('js-logo-ShowHome').addEventListener('click', () => {
-        window.location.href='home';
+        window.location.href='';
     });
 
 // 4. Go to Tickets Cards
@@ -109,56 +109,5 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href='ticket-detail/'+btn.dataset.id;
         })
     }
-
-// Show confirm buy
-/*
-    let btnsShowConfirm = document.querySelectorAll('.js-btn-showConfirmBuy');
-    for(let btn of btnsShowConfirm) {
-        btn.addEventListener('click', () => {
-            console.log('sadfa');
-            showConfirmButton(btn);
-        })
-    }
-
-    function showConfirmButton(id_ticket) {
-        let id = id_ticket.dataset.id;
-        document.querySelector('.confirm-buy-box').classList.toggle('js-show-contain');
-        document.querySelector('.confirm-buy-box').setAttribute('data-id', id);
-    }
-    
-    let btnsBuy = document.querySelectorAll('.confirm-buy-box');
-    for(let btn of btnsBuy) {
-        btn.addEventListener('click', () => {
-            buyTicket(btn);
-        })
-    }
-    
-    function buyTicket(id_ticket) {
-        let id = id_ticket.dataset.id;
-        window.location.href='buy-confirmed/'+id;
-    }
-
-    document.querySelector('.btn-cancelBuy').addEventListener('click', hideConfirmBuy);
-    function hideConfirmBuy(e) {
-        e.preventDefault();
-        document.querySelector('.confirm-buy-box').classList.add('js-show-contain');
-    }
-*/
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 });

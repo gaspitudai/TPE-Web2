@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Go to Home: Logo WAV
 
     document.getElementById('js-logo-ShowHome').addEventListener('click', () => {
-        window.location.href='user';
+        window.location.href='';
     });
     
 });

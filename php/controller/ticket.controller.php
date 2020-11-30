@@ -44,7 +44,11 @@ require_once 'php/model/user.model.php';
         }
 
         function getHome() {
-            $this->view->renderHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory);
+            session_start();
+            if($this->authHelper->checkLoggedIn())
+                $this->view->renderHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory);
+            else 
+                $this->userView->renderWelcomeHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME']);
         }
 
         function getTicketsByCategory($params = null) {

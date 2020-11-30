@@ -12,6 +12,6 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="js/comments.js"></script>
-    <script src="js/main-user.js"></script>
+    <script src="js/main-user2.js"></script>
 </head>
 <body>

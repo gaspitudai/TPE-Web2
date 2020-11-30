@@ -139,12 +139,6 @@
             else
                 $this->view->renderAllTickets($this->allTickets, $this->quantityTicketsByCategory, $_SESSION['NAME']);
         }
-
-        // function getTicketDetails($params = null) {
-        //     $ticket_id = $params[':ID'];
-        //     $ticket = $this->ticketModel->getTicket($ticket_id);
-        //     $this->view->renderTicketDetails($ticket, $this->userName);
-        // }
                     
         function getAdminHome() {
             session_start();
@@ -154,8 +148,7 @@
                 $user_db = $this->model->getUser($_SESSION['NAME']);
                 if($user_db->clearence == 'admin')
                     $this->view->renderAdminHome($this->allTickets, $this->ticketsData, $this->quantityTicketsByCategory, $_SESSION['NAME'],$this->allUsers);
-                else
-                    //$this->getLogin('You have not permission. Enter valid admin:');               
+                else             
                     $this->showAdvertence('You have not permission. Enter valid admin:');               
             }
         }

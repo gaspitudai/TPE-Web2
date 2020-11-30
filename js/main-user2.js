@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 3. Go to Home: Logo WAV
 
     document.getElementById('js-logo-ShowHome').addEventListener('click', () => {
-        window.location.href='user';
+        window.location.href='';
     });
 
 // 4. Go to Tickets Cards
