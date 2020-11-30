@@ -57,8 +57,28 @@
     <div id="comment-box-ajax">
     
     </div>
+
     <div id="commentForm-box-ajax">
-    
+        <section class="comments-section logBox comment-box">
+            <form class="formLogin comment-form">
+                <div class="inpBox">
+                    <input type="text" name="comment-inp" id="comment-inp" value="" placeholder=".  .  ." class="inp-log">
+                    <select name="score-select" id="score-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="js-show-contain">
+                    <input type="text" name="ticket_id" id="ticket_id" value={$ticket->id_ticket}>
+                    <input type="text" name="user_id" id="user_id" value={$user->user_id}>
+                    <input type="text" name="user_name" id="user_name" value={$user->name}>
+                </div>
+                <button id="comment-submit-btn">Send comment</button>
+            </form>
+        </section>
     </div>
 
 {include file='../../public/footer.tpl'}

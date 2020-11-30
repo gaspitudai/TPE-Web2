@@ -67,12 +67,13 @@ require_once 'php/model/user.model.php';
                 foreach($this->users as $user) {
                     if($user->name == $_SESSION['NAME']) {
                         $userClearence = $user->clearence;
+                        $user_select  = $user;
                     }
                 }
                 if($userClearence == 'admin') {
-                    $this->view->renderTicketDetailsAdmin($ticket);
+                    $this->view->renderTicketDetailsAdmin($ticket, $user_select);
                 } else {
-                    $this->view->renderTicketDetailsNormal($ticket);
+                    $this->view->renderTicketDetailsNormal($ticket, $user_select);
                 }
             }
         }

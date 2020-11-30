@@ -40,15 +40,17 @@
             $this->smarty->display('templates/public/ticket/index-details.tpl');
         }
 
-        function renderTicketDetailsNormal($ticket) {
+        function renderTicketDetailsNormal($ticket, $user) {
             $this->smarty->assign('title', 'Details ticket');
             $this->smarty->assign('ticket', $ticket);
+            $this->smarty->assign('user', $user);
             $this->smarty->display('templates/user/ticket/index-details-normal.tpl');
         }
 
-        function renderTicketDetailsAdmin($ticket) {
+        function renderTicketDetailsAdmin($ticket, $user) {
             $this->smarty->assign('title', 'Details ticket');
             $this->smarty->assign('ticket', $ticket);
+            $this->smarty->assign('user', $user);
             $this->smarty->display('templates/user/ticket/index-details.tpl');
         }
 
