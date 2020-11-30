@@ -1,29 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
+    
+    function onInitComments() {
+        let ticket_id = document.querySelector('#ticket_id').value;
+        let url = setFetchURL('comments', ticket_id);
+        getComments(url);
+    } 
+    onInitComments();
 
-    function setFetchURL() {
-        let urlWeb = 'http://localhost/WEB 2/TPE/api/';
-        let collectionID = 'comments';
-        let groupID = '';
-        getComments(urlWeb, collectionID, groupID);
+    function setFetchURL(coll, id) {
+        let urlWeb = 'http://localhost/TPE/api/';
+        let collectionID = coll;
+        let groupID = id;
+        return urlWeb + collectionID + '/' + groupID;
     }
-    setFetchURL();
-
-    function getComments(urlWeb, collectionID, groupID) {
-        fetch(urlWeb + collectionID + "/" + groupID, {
-            "method": "GET",
-            "mode": 'cors',
+    
+    function getComments(url) {
+        fetch(url, {
+            'method': 'GET',
+            'mode': 'cors',
         })
         .then(resp => resp.json())
-        .then(comments => {
-            renderComments(comments);
-            console.log(comments);
-        })
-        .catch(exc => console.log('Catch exc: ' + exc))
+        .then(comments =>  renderComments(comments))
+        .catch(exc => console.log('Catch exc GET: ' + exc))
     }
 
     function renderComments(comments) {
-        let commentsContainer = document.querySelector('#comment-box-ajax')
+        const commentsContainer = document.querySelector('#comment-box-ajax');
+        
+        let count = 0;
+        for(let ss of comments) {
+            count += parseInt(ss.score);
+        }
+        let prom = toStars(Math.floor(count / comments.length));
+        let scorePromSpan = document.createElement('h3');
+        scorePromSpan.innerHTML = 'Average score: ' + prom;
+        scorePromSpan.className = 'color-primary';
+        commentsContainer.appendChild(scorePromSpan);
 
         for(let i=0; i<comments.length; i++) {
 
@@ -38,14 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cArticle.className = 'comments-article';
             divName.className = 'name-comment-box';
             score.className = 'score-span';
-            switch(comments[i].score) {
-                case '1': score.innerHTML = '⭐'; break;
-                case '2': score.innerHTML = '⭐⭐'; break;
-                case '3': score.innerHTML = '⭐⭐⭐'; break;
-                case '4': score.innerHTML = '⭐⭐⭐⭐'; break;
-                case '5': score.innerHTML = '⭐⭐⭐⭐⭐'; break;
-                default: score.innerHTML = '⭐⭐⭐⭐⭐'; break;
-            }
+            score.innerHTML = toStars(comments[i].score);
 
             commentsContainer.appendChild(cArticle);
                 cArticle.appendChild(divName);
@@ -59,21 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    function toStars(num) {
+        num = parseInt(num);
+        switch(num) {
+            case 1: num = '⭐'; break;
+            case 2: num = '⭐⭐'; break;
+            case 3: num = '⭐⭐⭐'; break;
+            case 4: num = '⭐⭐⭐⭐'; break;
+            case 5: num = '⭐⭐⭐⭐⭐'; break;
+            default: num = '⭐⭐⭐⭐⭐'; break;
+        }
+        return num;
+    }
 
 })

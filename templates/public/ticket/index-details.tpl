@@ -15,6 +15,11 @@
     <div id="comment-box-ajax">
     
     </div>
+    <div class="js-show-contain">
+        <input type="text" name="ticket_id" id="ticket_id" value={$ticket->id_ticket}>
+        <input type="text" name="user_id" id="user_id" value={$user->user_id}>
+        <input type="text" name="user_name" id="user_name" value={$user->name}>
+    </div>
     
 {include file='public/footer.tpl'}
     

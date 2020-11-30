@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2020 a las 23:39:18
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.6
+-- Tiempo de generación: 30-11-2020 a las 04:36:18
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,9 +63,8 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`comment_id`, `description`, `ticket_id`, `user_id`, `score`) VALUES
-(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa rem perspiciatis veritatis corrupti perferendis magnam accusantium blanditiis minus dignissimos, itaque reiciendis dolorum, praesentium voluptas consequuntur, velit necessitatibus vero? Dolorum', 41, 65, 5),
-(2, 'Que bueno que estuvo. Gracias po rtodoo!', 35, 67, 3),
-(8, 'asdf asd vasdf asddf asdfawdasdfva', 35, 67, 5);
+(72, 'this is great!', 35, 65, 5),
+(81, 'oh yessss!!!', 35, 120, 3);
 
 -- --------------------------------------------------------
 
@@ -759,7 +758,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT de la tabla `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `ticket`

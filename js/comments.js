@@ -36,8 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderComments(comments) {
-
         const commentsContainer = document.querySelector('#comment-box-ajax');
+
+        let count = 0;
+        for(let ss of comments) {
+            count += parseInt(ss.score);
+        }
+        let prom = toStars(Math.floor(count / comments.length));
+        let scorePromSpan = document.createElement('h3');
+        scorePromSpan.innerHTML = 'Average score: ' + prom;
+        scorePromSpan.className = 'color-primary';
+        commentsContainer.appendChild(scorePromSpan);
 
         for(let i=0; i<comments.length; i++) {
 
@@ -56,14 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnDeleteComment.setAttribute('data-id', comments[i].comment_id);
             divName.className = 'name-comment-box';
             score.className = 'score-span';
-            switch(comments[i].score) {
-                case '1': score.innerHTML = '⭐'; break;
-                case '2': score.innerHTML = '⭐⭐'; break;
-                case '3': score.innerHTML = '⭐⭐⭐'; break;
-                case '4': score.innerHTML = '⭐⭐⭐⭐'; break;
-                case '5': score.innerHTML = '⭐⭐⭐⭐⭐'; break;
-                default: score.innerHTML = '⭐⭐⭐⭐⭐'; break;
-            }
+            score.innerHTML = toStars(comments[i].score);
 
             commentsContainer.appendChild(cArticle);
                 cArticle.appendChild(btnDeleteComment);
@@ -78,6 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function toStars(num) {
+        num = parseInt(num);
+        switch(num) {
+            case 1: num = '⭐'; break;
+            case 2: num = '⭐⭐'; break;
+            case 3: num = '⭐⭐⭐'; break;
+            case 4: num = '⭐⭐⭐⭐'; break;
+            case 5: num = '⭐⭐⭐⭐⭐'; break;
+            default: num = '⭐⭐⭐⭐⭐'; break;
+        }
+        return num;
+    }
+
     function submitComment(e) {
         e.preventDefault();
         let url = setFetchURL('post-comment', '');
@@ -87,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let score = document.querySelector('#score-select').value;
         let user_name = document.querySelector('#user_name').value;
         postComment(url, description, ticket_id, user_id, score, user_name);
+        document.querySelector('.comment-form').reset();
     }
 
     function postComment(url, description, ticket_id, user_id, score, user_name) {
@@ -99,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         fetch(url, {
             'method': 'POST',
-            'mode': 'cors',
+            'mode': 'no-cors',
             'headers': { 'Content-Type': 'application/json' },
             'body': JSON.stringify(data)
         })
@@ -108,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function deleteComment(btn) {
         let comment_id = btn.dataset.id;
-        console.log(comment_id);
         let url = setFetchURL('delete-comment', comment_id);
         fetch(url, {
             'method': 'DELETE',
